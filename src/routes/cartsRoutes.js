@@ -55,6 +55,22 @@ router.post("/:cid/products/:pid", async (req, res) => {
     }
 });
 
+//Actualizar cantidad de producto en el carrito
+router.put("/:cid/products/:pid", async (req, res) => {
+    try {
+        const { cid, pid } = req.params;
+        const { quantity } = req.body;
+
+        await Cart.updateOne(
+            { _id: cid, "products.product": pid },
+            { $set: { "products.$.quantity": quantity } }
+        );
+
+        res.json({ status: "quantity updated" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 // Eliminar producto del carrito
 router.delete("/:cid/products/:pid", async (req, res) => {
