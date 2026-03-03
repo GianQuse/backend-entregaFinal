@@ -4,6 +4,7 @@ import { engine } from 'express-handlebars';
 
 import productsRouter from './routes/productsRouter.js';
 import cartsRouter from './routes/cartsRoutes.js';
+import viewsRouter from "./routes/viewsRouter.js";
 
 const app = express();
 const PORT = 8080;
@@ -15,11 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 //Handlebars
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
-app.set('views', './views');
+app.set('views', './src/views');
 
 //Routes
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+app.use("/", viewsRouter);
 
 //Mongo 
 mongoose.connect('mongodb://localhost:27017/ecommerce')

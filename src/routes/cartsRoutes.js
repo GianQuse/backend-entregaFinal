@@ -72,6 +72,21 @@ router.put("/:cid/products/:pid", async (req, res) => {
     }
 });
 
+// Reemplazar todos los productos
+router.put("/:cid", async (req, res) => {
+    try {
+        const { cid } = req.params;
+        const products = req.body;
+
+        await Cart.findByIdAndUpdate(cid, { products });
+
+        res.json({ status: "cart updated" });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Eliminar producto del carrito
 router.delete("/:cid/products/:pid", async (req, res) => {
     try {
