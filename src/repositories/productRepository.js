@@ -1,4 +1,4 @@
-import { ProductModel } from "../models/productModel.js";
+import { Product } from "../models/productModel.js";
 
 class ProductRepository {
     constructor(model) {
@@ -26,4 +26,4 @@ class ProductRepository {
     };
 }
 
-export const productRepository = new ProductRepository(ProductModel);
+export const productRepository = new ProductRepository(Product);
