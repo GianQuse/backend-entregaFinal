@@ -3,6 +3,7 @@ import { engine } from 'express-handlebars';
 import dotenv from "dotenv";
 dotenv.config();
 import { connectDB } from "./config/dbConnection.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 import productsRouter from './routes/productsRouter.js';
 import cartsRouter from './routes/cartsRoutes.js';
@@ -24,6 +25,9 @@ app.set('views', './src/views');
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use("/", viewsRouter);
+
+//Middleware de error
+app.use(errorHandler);
 
 // Mongo + Server
 connectDB()
