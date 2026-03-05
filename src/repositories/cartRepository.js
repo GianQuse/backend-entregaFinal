@@ -24,6 +24,30 @@ class CartRepository {
         }
     };
 
+    addProduct = async (cid, pid) => {
+
+        const cart = await this.model.findById(cid);
+
+        if (!cart) throw new Error("Cart not found");
+
+        const productIndex = cart.products.findIndex(
+            p => p.product.toString() === pid
+        );
+
+        if (productIndex !== -1) {
+            cart.products[productIndex].quantity += 1;
+        } else {
+            cart.products.push({
+                product: pid,
+                quantity: 1
+            });
+        }
+
+        await cart.save();
+
+        return cart;
+    };
+
     deleteProduct = async (cid, pid) => {
         try {
 

@@ -35,6 +35,20 @@ class CartController {
         }
     };
 
+    addProduct = async (req, res, next) => {
+        try {
+
+            const { cid, pid } = req.params;
+
+            const cart = await this.repository.addProduct(cid, pid);
+
+            res.json(cart);
+
+        } catch (error) {
+            next(error);
+        }
+    };
+
     deleteProduct = async (req, res, next) => {
         try {
 
